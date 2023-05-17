@@ -4,6 +4,8 @@
     <string name="action_settings">Settings</string>
     <string name="action_github">Get on GitHub</string>
     <string name="action_info">info</string>
+    <string name="action_details">details</string>
+    <string name="details_dialog_title">Last Detected Error Details</string>
     <string name="info_details">This is a sample app for RootBeer - a simple to use root checking Android library. Rootbeer gives an indication of root. Remember root==god, so there\'s no 100% way to check for root.</string>
 
     <string name="result_rooted">ROOTED*</string>

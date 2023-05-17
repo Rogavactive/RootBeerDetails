@@ -30,6 +30,8 @@ public class RootBeer {
     private final Context mContext;
     private boolean loggingEnabled = true;
 
+    public static String LAST_FOUND_VULNERABILITY_DETAILS = "";
+
     public RootBeer(Context context) {
         mContext = context;
     }
@@ -280,6 +282,7 @@ public class RootBeer {
                     String badValue = dangerousProps.get(key);
                     badValue = "[" + badValue + "]";
                     if (line.contains(badValue)) {
+                        LAST_FOUND_VULNERABILITY_DETAILS = key + " = " + badValue + " detected!";
                         QLog.v(key + " = " + badValue + " detected!");
                         result = true;
                     }

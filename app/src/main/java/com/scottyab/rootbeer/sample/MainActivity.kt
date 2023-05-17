@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.scottyab.rootbeer.RootBeer
 import com.scottyab.rootbeer.sample.extensions.hide
 import com.scottyab.rootbeer.sample.extensions.show
 import com.scottyab.rootbeer.sample.ui.RootItemAdapter
@@ -20,6 +21,7 @@ import kotlinx.coroutines.withContext
 class MainActivity : ScopedActivity() {
 
     private var infoDialog: AlertDialog? = null
+    private var detailsDialog: AlertDialog? = null
     private val rootItemAdapter = RootItemAdapter()
     private val checkForRoot = CheckForRootWorker(this)
 
@@ -107,13 +109,17 @@ class MainActivity : ScopedActivity() {
                 showInfoDialog()
                 true
             }
+            R.id.action_details -> {
+                showDetailsDialog()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
 
     private fun showInfoDialog() {
-        //do nothing if already showing
-        if (infoDialog?.isShowing != true) {
+        //do nothing if already showing any dialog
+        if (infoDialog?.isShowing != true && detailsDialog?.isShowing != true) {
             infoDialog = AlertDialog.Builder(this)
                 .setTitle(R.string.app_name)
                 .setMessage(R.string.info_details)
@@ -128,6 +134,20 @@ class MainActivity : ScopedActivity() {
                         )
                     )
                 }
+                .create()
+            infoDialog?.show()
+        }
+    }
+
+    private fun showDetailsDialog() {
+        //do nothing if already showing any dialog or there is no last error
+        if (infoDialog?.isShowing != true && detailsDialog?.isShowing != true
+            && RootBeer.LAST_FOUND_VULNERABILITY_DETAILS != "") {
+            detailsDialog = AlertDialog.Builder(this)
+                .setTitle(R.string.details_dialog_title)
+                .setMessage("Last encountered error details: ${RootBeer.LAST_FOUND_VULNERABILITY_DETAILS}")
+                .setCancelable(true)
+                .setPositiveButton("ok") { dialog, _ -> dialog.dismiss() }
                 .create()
             infoDialog?.show()
         }
