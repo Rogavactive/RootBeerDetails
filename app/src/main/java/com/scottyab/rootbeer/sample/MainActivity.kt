@@ -149,7 +149,7 @@ class MainActivity : ScopedActivity() {
                 .setCancelable(true)
                 .setPositiveButton("ok") { dialog, _ -> dialog.dismiss() }
                 .create()
-            infoDialog?.show()
+            detailsDialog?.show()
         }
     }
 
